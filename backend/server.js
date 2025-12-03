@@ -20,9 +20,10 @@ app.use(express.json())
 
 // 1. Define the list of allowed websites FIRST
 const allowedOrigins = [
-  "http://localhost:5173", 
-  "http://localhost:5174", // Adding this just in case Vite switches ports
-  "https://curequeue.vercel.app" // Your future Vercel URL
+  "http://localhost:5173",
+  "http://localhost:5174",
+  "https://curequeue.vercel.app",       // User App
+  "https://curequeue-admin.vercel.app"  // Admin App (Add this new one)
 ];
 
 // 2. Pass that list to the CORS function
