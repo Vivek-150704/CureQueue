@@ -22,8 +22,10 @@ app.use(express.json())
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:5174",
-  "https://curequeue.vercel.app",       // User App
-  "https://curequeue-admin.vercel.app"  // Admin App (Add this new one)
+  "https://curequeue.vercel.app",
+  "https://curequeue-admin.vercel.app",
+  "https://curequeue.netlify.app",         // your user app on Netlify
+  "https://curequeue-admin.netlify.app"    // your admin app on Netlify
 ];
 
 // 2. Pass that list to the CORS function
