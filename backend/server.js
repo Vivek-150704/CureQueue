@@ -22,32 +22,40 @@ app.use(express.json())
 
 // --- CORS CONFIGURATION START ---
 
-// 1. Define the list of allowed websites FIRST
-// You can also pass more domains via env variables FRONTEND_URL and ADMIN_FRONTEND_URL
+// Frontend URLs that are allowed to call this backend
 const allowedOrigins = [
-  "https://curequeue-backend-iuyi.onrender.com",
-  "https://curequeue-backend-iuyi.onrender.com",
+  // Local dev
+  "http://localhost:5173",
+  "http://localhost:5174",
+
+  // Vercel (your current deployed frontend)
+  "https://curequeue-sand.vercel.app",
   "https://curequeue.vercel.app",
   "https://curequeue-admin.vercel.app",
+
+  // Netlify (if you still use these)
   "https://curequeue.netlify.app",
   "https://curequeue-admin.netlify.app",
+
+  // Extra from environment (optional)
   process.env.FRONTEND_URL,
   process.env.ADMIN_FRONTEND_URL
-].filter(Boolean) // removes any undefined / empty values
+].filter(Boolean) // remove undefined / empty values
 
-// 2. Pass that list to the CORS function
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps, curl, or Postman)
+      // Allow requests with no origin (e.g. mobile apps, curl, Postman)
       if (!origin) return callback(null, true)
 
       // Check if the incoming origin is in our allowed list
-      if (allowedOrigins.indexOf(origin) === -1) {
+      if (!allowedOrigins.includes(origin)) {
         const msg =
-          "The CORS policy for this site does not allow access from the specified Origin."
+          "The CORS policy for this site does not allow access from the specified Origin: " +
+          origin
         return callback(new Error(msg), false)
       }
+
       return callback(null, true)
     },
     credentials: true
