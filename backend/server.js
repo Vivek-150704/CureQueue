@@ -25,8 +25,8 @@ app.use(express.json())
 // 1. Define the list of allowed websites FIRST
 // You can also pass more domains via env variables FRONTEND_URL and ADMIN_FRONTEND_URL
 const allowedOrigins = [
-  "http://localhost:5173",
-  "http://localhost:5174",
+  "https://curequeue-backend-iuyi.onrender.com",
+  "https://curequeue-backend-iuyi.onrender.com",
   "https://curequeue.vercel.app",
   "https://curequeue-admin.vercel.app",
   "https://curequeue.netlify.app",
