@@ -21,47 +21,30 @@ connectCloudinary()
 app.use(express.json())
 
 // --- CORS CONFIGURATION START ---
-
-// Frontend URLs that are allowed to call this backend
+// Put ONLY FRONTEND ORIGINS here (not the backend URL)
 const allowedOrigins = [
-  // Local dev
   "http://localhost:5173",
   "http://localhost:5174",
 
-  // Vercel (your current deployed frontend)
+  // your deployed frontends
   "https://curequeue-sand.vercel.app",
   "https://curequeue.vercel.app",
   "https://curequeue-admin.vercel.app",
-
-  // Netlify (if you still use these)
   "https://curequeue.netlify.app",
   "https://curequeue-admin.netlify.app",
 
-  // Extra from environment (optional)
+  // from env if you want to configure via Render dashboard
   process.env.FRONTEND_URL,
   process.env.ADMIN_FRONTEND_URL
-].filter(Boolean) // remove undefined / empty values
+].filter(Boolean) // remove undefined / empty
 
+// Simple CORS setup: allow only the origins above
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (e.g. mobile apps, curl, Postman)
-      if (!origin) return callback(null, true)
-
-      // Check if the incoming origin is in our allowed list
-      if (!allowedOrigins.includes(origin)) {
-        const msg =
-          "The CORS policy for this site does not allow access from the specified Origin: " +
-          origin
-        return callback(new Error(msg), false)
-      }
-
-      return callback(null, true)
-    },
+    origin: allowedOrigins,
     credentials: true
   })
 )
-
 // --- CORS CONFIGURATION END ---
 
 // api endpoints
